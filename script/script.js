@@ -57,3 +57,41 @@ const typeOfChars = () => {
         };
     } while (chosenChars.length === 0);
 };
+
+// Constructs a random password using the user's choice of length and types
+const generatePassword = () => {
+    // Strings containing all available characters
+    const lowerCase = 'abcdefghijklmnopqrstuvwxyz';
+    const upperCase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const special = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
+    const numbers = '0123456789';
+    // Rounds user input for length down to an integer
+    const length = Math.floor(numOfChars());
+    const types = typeOfChars();
+    let newPassword = [];
+
+    // Selects a random index
+    const randomValue = varToIndex => {
+        let randomIndex = Math.floor(Math.random() * varToIndex.length);
+        let choice = varToIndex[randomIndex];
+        return choice;
+    }
+
+    // Selects a random character type from the available character types the user selected
+    // Then pushes a random character from the corresponding string into the newPassword array
+    for (let i = 0; i < length; i++) {
+        let typeToPush = randomValue(types);
+        if (typeToPush === 'lowercase') {
+            newPassword.push(randomValue(lowerCase));
+        } else if (typeToPush === 'uppercase') {
+            newPassword.push(randomValue(upperCase));
+        } else if (typeToPush === 'special') {
+            newPassword.push(randomValue(special));
+        } else {
+            newPassword.push(randomValue(numbers));
+        };
+    };
+
+    // Returns a string version of the password array
+    return newPassword.join('');
+};
